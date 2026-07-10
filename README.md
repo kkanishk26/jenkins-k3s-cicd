@@ -32,8 +32,11 @@ Jenkins UI runs on 8080. K3s API server runs on 6443. Frontend NodePort is 30080
 
 ## Screenshots
 
-See screenshots/ for Jenkins pipeline stages all green, kubectl get pods, kubectl get svc, and the running app in the browser.
+<img width="2880" height="1800" alt="image" src="https://github.com/user-attachments/assets/5ae66f26-209a-4152-907f-0a6955bd5fe7" />
 
-## Future upgrade
+<img width="2880" height="1800" alt="image" src="https://github.com/user-attachments/assets/49e70415-870d-4f0b-8058-576251c20c10" />
+
+<img width="2880" height="1800" alt="image" src="https://github.com/user-attachments/assets/b5519aeb-a9d1-4205-a18e-6689bcb801f9" />
 
 Swap the local K3s import for a real registry (Docker Hub or Amazon ECR) and K3s for Amazon EKS once this version is solid.
+
