@@ -42,7 +42,6 @@ pipeline {
 
         stage('Push Image to Docker Hub') {
             steps {
-                sh 'echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin'
                 sh "docker push ${BACKEND_IMAGE}:${IMAGE_TAG}"
                 sh "docker push ${BACKEND_IMAGE}:latest"
                 sh "docker push ${FRONTEND_IMAGE}:${IMAGE_TAG}"
@@ -68,9 +67,6 @@ pipeline {
     }
 
     post {
-        always {
-            sh 'docker logout || true'
-        }
         failure {
             echo 'Pipeline failed - check the first red stage above.'
         }
