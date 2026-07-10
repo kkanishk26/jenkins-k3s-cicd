@@ -2,12 +2,11 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDS = credentials('dockerhub-creds')
         DOCKERHUB_USER  = 'kanishkdoc'
-        VM_IP           = '192.168.64.9'
         BACKEND_IMAGE   = "${DOCKERHUB_USER}/cicd-backend"
         FRONTEND_IMAGE  = "${DOCKERHUB_USER}/cicd-frontend"
         IMAGE_TAG       = "${env.BUILD_NUMBER}"
+        VM_IP           = '192.168.64.9'
         PATH            = "/usr/local/bin:${env.PATH}"
     }
 
@@ -40,12 +39,10 @@ pipeline {
             }
         }
 
-        stage('Push Image to Docker Hub') {
+        stage('Load Image into Cluster') {
             steps {
-                sh "docker push ${BACKEND_IMAGE}:${IMAGE_TAG}"
-                sh "docker push ${BACKEND_IMAGE}:latest"
-                sh "docker push ${FRONTEND_IMAGE}:${IMAGE_TAG}"
-                sh "docker push ${FRONTEND_IMAGE}:latest"
+                sh "docker save ${BACKEND_IMAGE}:${IMAGE_TAG} | sudo /usr/local/bin/k3s ctr images import -"
+                sh "docker save ${FRONTEND_IMAGE}:${IMAGE_TAG} | sudo /usr/local/bin/k3s ctr images import -"
             }
         }
 
